@@ -1,4 +1,9 @@
 # GeocodeService
+This code can be used to retrieve the geocode for a provided address using Google's Geocoding API. You will need to provide your own API key in order for this service to work.
+
+Get your API key [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
+
+## Custom Metadata
 This code requires custom metadata to pull in API info for Google's Geocode API
 
 ### Schema
@@ -13,12 +18,12 @@ This code requires custom metadata to pull in API info for Google's Geocode API
 | Label | Name | Value |
 | --- | --- | --- |
 | Geolocation Endpoint | Geolocation_Endpoint | https://maps.googleapis.com/maps/api/geocode/ |
-| Google Geocode API Key | Google_Geocode_API_Key | [[ replace with your API key ]] |
+| Google Geocoding API Key | Google_Geocoding_API_Key | [[ replace with your API key ]] |
 | Output Type | Output_Type | json? |
 
 
 
-### Sample code
+## Sample code
 ```java
 GeocodeData geocode = GeolocationServiceUtility.getGeocodeForAddress('Laser 1199 Parque Industrial Maran','Mexicali', 'B.C.');
 System.debug('Latitude: ' + geocode.latitude);
