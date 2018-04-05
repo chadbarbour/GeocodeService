@@ -1,6 +1,12 @@
 /**
- * Created by cbarbour on 4/3/18.
+ * Created by Salesforce on 4/4/18.
+ *
+ * Purpose: This class is used create a mock callout response for unit testing the GeolocationServiceUtility class
+ *
+ * Usage: Add the following line to the unit test: Test.setMock(HttpCalloutMock.class, new GeolocationHttpCalloutMock());
+ *
  */
+
 @isTest
 global class GeolocationHttpCalloutMock implements HttpCalloutMock{
 

@@ -1,5 +1,10 @@
 /**
- * Created by cbarbour on 4/4/18.
+ * Created by Salesforce on 4/4/18.
+ *
+ * Purpose: This class is used to test the GeolocationServiceUtility class
+ *
+ * Usage: N/A
+ *
  */
 
 @isTest
@@ -37,7 +42,7 @@ private class GeolocationServiceUtility_Test {
         // Test private method for deserializing JSON response
         GeocodeData testGeoCodeData = GeolocationServiceUtility.deserializeCoordinates(res.getBody());
         System.assertEquals(32.6029296, testGeoCodeData.latitude);
-        System.assertEquals(-115.4339159802915, testGeoCodeData.longitude);
+        System.assertEquals(-115.432567, testGeoCodeData.longitude);
         System.assertEquals('OK',testGeoCodeData.status);
         System.assertEquals('OK',testGeoCodeData.statusText);
 
