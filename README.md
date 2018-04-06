@@ -9,7 +9,7 @@ This code requires custom metadata to pull in API info for Google's Geocode API
 ### Schema
 | Name | Value |
 | -------------- | -------------------- |
-| Singular Label | Geolocation Settings |
+| Singular Label | Geolocation Setting |
 | Plural Label | Geolocation Settings |
 | Object Name | Geolocation_Settings |
 | Custom Fields | Value; Value__c (Text 50) |
