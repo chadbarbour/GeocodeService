@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>API_Quota_Limit</fullName>
+        <categories>Geocoding Service</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>API Quota Limit</shortDescription>
+        <value>You have reached your Geocoding API quota limit.</value>
+    </labels>
+    <labels>
+        <fullName>Invalid_Request</fullName>
+        <categories>Geocoding Service</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid Request</shortDescription>
+        <value>The query (address, components, or latitude/longitude) is missing.</value>
+    </labels>
+    <labels>
+        <fullName>Request_Denied</fullName>
+        <categories>Geocoding Service</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Request Denied</shortDescription>
+        <value>Your Geocoding API request was denied. Please validate your API Key and Endpoint.</value>
+    </labels>
+    <labels>
+        <fullName>Unknown_Error</fullName>
+        <categories>Geocoding Service</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Unknown Error</shortDescription>
+        <value>An undocumented error code was received. Please consult Google&apos;s documentation.</value>
+    </labels>
+    <labels>
+        <fullName>Zero_Results_Message</fullName>
+        <categories>Geocoding Service</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Zero Results Message</shortDescription>
+        <value>The geocode was successful but returned no results. This may occur if the geocoder was passed a non-existent address.</value>
+    </labels>
+</CustomLabels>

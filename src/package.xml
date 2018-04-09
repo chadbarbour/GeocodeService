@@ -8,8 +8,17 @@
         <name>ApexClass</name>
     </types>
     <types>
-        <members>Geolocation_Settings__mdt.Google_Geocoding_API_Endpoint</members>
-        <members>Geolocation_Settings__mdt.Google_Geocoding_API_Key</members>
+        <members>API_Quota_Limit</members>
+        <members>Invalid_Request</members>
+        <members>Request_Denied</members>
+        <members>Unknown_Error</members>
+        <members>Zero_Results_Message</members>
+        <name>CustomLabel</name>
+    </types>
+    <types>
+        <members>Geolocation_Settings.Google_Geocoding_API_Endpoint</members>
+        <members>Geolocation_Settings.Google_Geocoding_API_Key</members>
+        <members>Geolocation_Settings.Output_Type</members>
         <name>CustomMetadata</name>
     </types>
     <types>
