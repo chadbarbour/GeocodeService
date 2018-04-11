@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom Metadata to store Geolocation Settings like the Google API Key</description>
+    <fields>
+        <fullName>Value__c</fullName>
+        <description>Value of they Geolocation Setting, for example and End Point URL or API Key</description>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <inlineHelpText>Value of they Geolocation Setting, for example and End Point URL or API Key</inlineHelpText>
+        <label>Value</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Geolocation Setting</label>
+    <pluralLabel>Geolocation Settings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

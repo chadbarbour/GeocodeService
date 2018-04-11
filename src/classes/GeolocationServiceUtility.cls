@@ -9,25 +9,40 @@
 
 public with sharing class GeolocationServiceUtility {
 
-    private static Map<String, String> geolocationSettings;
-    private static final String ZERO_RESULTS_MSG = 'The geocode was successful but returned no results. This may occur if the geocoder was passed a non-existent address.';
-    private static final String OVER_QUERY_LIMIT_MSG = 'You are over your quota.';
-    private static final String REQUEST_DENIED_MSG = 'Your request was denied.';
-    private static final String UNKNOWN_ERROR_MSG = 'The query (address, components, or latitude/longitude) is missing.';
+    /*
+     * Define the error message values from Custom Labels
+     */
+    private static final String ZERO_RESULTS_MSG = System.Label.Zero_Results_Message;
+    private static final String OVER_QUERY_LIMIT_MSG = System.Label.API_Quota_Limit;
+    private static final String REQUEST_DENIED_MSG = System.Label.Request_Denied;
+    private static final String INVALID_REQUEST_MSG = System.Label.Invalid_Request;
+    private static final String UNKNOWN_ERROR_MSG = System.Label.Unknown_Error;
 
+    /*
+     * Settings for the Geocoding Service as defined in 
+     * Custom Metadata Geolocation_Settings__mdt
+     */
+    private static Map<String, String> geoLocationSettings {
+        get {
+            if(geoLocationSettings == null) {
+                geoLocationSettings = new Map<String, String>();
+                for (Geolocation_Settings__mdt setting : [SELECT Id, DeveloperName, Value__c FROM Geolocation_Settings__mdt]) {
+                    geoLocationSettings.put(setting.DeveloperName, setting.Value__c);
+                }
+            } 
+            return geoLocationSettings;
+        }
+        private set;
+    }
+    
     // Send the callout request and return the response
-    public static HttpResponse getGeocodeFromService(String aStreet, String aCity, String aState){
-
-
-        // Get geolocation settings from custom metadata
-        getGeolocationSettings();
+    public static HttpResponse getGeocodeFromService(String aStreet, String aCity, String aPostalCode, String aState, string aCountry){
 
         // Build the url endpoint
-        String url = geolocationSettings.get('Geolocation_Endpoint');
-        url += geolocationSettings.get('Output_Type');
-        String fullAddress = aStreet + ', ' + aCity + ', ' + aState;
-        url += 'address=' + formatAddress(fullAddress);
-        url += '&key=' + geolocationSettings.get('Google_Geocoding_API_Key');
+        String url = geoLocationSettings.get('Google_Geocoding_API_Endpoint') + geoLocationSettings.get('Output_Type');
+        String fullAddress = aStreet + ', ' + aPostalCode +  ', ' + aCity + ', ' + aState + ', ' + aCountry;
+        url += '?address=' + formatAddress(fullAddress);
+        url += '&key=' + geoLocationSettings.get('Google_Geocoding_API_Key');
 
         // Stage and send the callout to get the address's geolocation
         Http h = new Http();
@@ -44,33 +59,28 @@ public with sharing class GeolocationServiceUtility {
 
     }
 
-
-    // Deserialize the callout response
+    /*
+     * Main methods to use this service
+     * Three variations: 
+     * 1) Street, City, State
+     * 2) Street, Postal Code, City, Country
+     * 3) Street, Postal Code, City, State, Country
+     */
     public static GeocodeData getGeocodeForAddress(String aStreet, String aCity, String aState){
+        return getGeocodeForAddress(aStreet, '', aCity, aState, '');
+    }
 
-        HttpResponse response = getGeocodeFromService(aStreet, aCity, aState);
+    public static GeocodeData getGeocodeForAddress(String aStreet, String aPostalCode, String aCity, String aCountry){
+        return getGeocodeForAddress(aStreet, aPostalCode, aCity, '', aCountry);
+    }
+    
+    public static GeocodeData getGeocodeForAddress(String aStreet, String aPostalCode, String aCity, String aState, String aCountry){
+
+        HttpResponse response = getGeocodeFromService(aStreet, aCity, aPostalCode, aState, aCountry);
 
         return deserializeCoordinates(response.getBody());
 
     }
-
-
-    // Build a map of geolocation settings
-    private static void getGeolocationSettings(){
-
-        if(geolocationSettings == null) {
-
-            geolocationSettings = new Map<String, String>();
-
-            for (Geolocation_Settings__mdt setting : [SELECT Id, DeveloperName, Value__c FROM Geolocation_Settings__mdt]) {
-                System.debug('===========> setting: ' + setting);
-                geolocationSettings.put(setting.DeveloperName, setting.Value__c);
-            }
-
-        }
-
-    }
-
 
     // Make the response more useful by deserializing the response body
     @TestVisible
@@ -117,9 +127,8 @@ public with sharing class GeolocationServiceUtility {
 
     }
 
-
     // Handle errors the geolocation service may return
-    // Valid status error codes: ZERO_RESULTS, OVER_QUERY_LIMIT, REQUEST_DENIED, UNKNOWN_ERROR
+    // Valid status error codes: ZERO_RESULTS, OVER_QUERY_LIMIT, REQUEST_DENIED, INVALID_REQUEST, UNKNOWN_ERROR
     @TestVisible
     private static String handleError(String status){
 
@@ -128,20 +137,17 @@ public with sharing class GeolocationServiceUtility {
                 status == 'ZERO_RESULTS' ? ZERO_RESULTS_MSG :
                         status == 'OVER_QUERY_LIMIT' ? OVER_QUERY_LIMIT_MSG :
                                 status == 'REQUEST_DENIED' ? REQUEST_DENIED_MSG :
-                                        status == 'UNKNOWN_ERROR' ? UNKNOWN_ERROR_MSG : 'An undocumented error code was received. Please consult Google\'s documentation.';
+        							status == 'INVALID_REQUEST' ? INVALID_REQUEST_MSG :
+                                        status == 'UNKNOWN_ERROR' ? UNKNOWN_ERROR_MSG : UNKNOWN_ERROR_MSG;
 
         return errorMessage;
 
     }
 
-
     // Format the address such that the whitespace is replace with '+'
     private static String formatAddress(String fullAddress){
-
         // The first parameter is a regex expression to identify all whitespace in a string
         return fullAddress.replaceAll('\\s+', '+');
-
     }
-
-
+    
 }

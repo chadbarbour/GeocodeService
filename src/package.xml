@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>GeocodeData</members>
+        <members>GeolocationHttpCalloutMock</members>
+        <members>GeolocationServiceUtility</members>
+        <members>GeolocationServiceUtility_Test</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>API_Quota_Limit</members>
+        <members>Invalid_Request</members>
+        <members>Request_Denied</members>
+        <members>Unknown_Error</members>
+        <members>Zero_Results_Message</members>
+        <name>CustomLabel</name>
+    </types>
+    <types>
+        <members>Geolocation_Settings.Google_Geocoding_API_Endpoint</members>
+        <members>Geolocation_Settings.Google_Geocoding_API_Key</members>
+        <members>Geolocation_Settings.Output_Type</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>Geolocation_Settings__mdt</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Geolocation_Settings__mdt-Geolocation Setting Layout</members>
+        <name>Layout</name>
+    </types>
+    <version>41.0</version>
+</Package>
